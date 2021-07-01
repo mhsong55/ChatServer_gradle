@@ -12,11 +12,10 @@ import java.util.List;
 public class MultiChatServer {
     private static final int PORT = 20111;
 
-    private List<ClientInfo> mClientList;        // Client 목록 리스트
-    private ServerSocket mServerSocket;            // 서버 소켓
+    private List<ClientInfo> mClientList;        // Client List
+    private ServerSocket mServerSocket;          // Server Socket
 
     public MultiChatServer() {
-        // 동기화 된 ArrayList
         mClientList = Collections.synchronizedList(new ArrayList<ClientInfo>());
     }
 
@@ -25,11 +24,11 @@ public class MultiChatServer {
 
         try {
             mServerSocket = new ServerSocket(PORT);
-            System.out.println("서버 시작!!");
+            System.out.println("Server Start");
 
             while (true) {
                 socket = mServerSocket.accept();
-                System.out.println(socket.getInetAddress() + "에서 접속함");
+                System.out.println("[ACCESS INFO] Client IP : " + socket.getInetAddress());
 
                 new ServerReciver(socket).start();
             }
@@ -40,12 +39,12 @@ public class MultiChatServer {
 
     private void addClient(ClientInfo client) {
         mClientList.add(client);
-        sendToAll(client.getNickName() + " 님이 접속하였습니다. " + mClientList.size() + "명 접속중");
+        sendToAll("Hello, " + client.getNickName() + ". " + mClientList.size() + "people/person remains now.");
     }
 
     private void removeClient(ClientInfo client) {
         mClientList.remove(client);
-        sendToAll(client.getNickName() + " 님이 퇴장하였습니다. " + mClientList.size() + "명 접속중");
+        sendToAll("BYE, " + client.getNickName() + ". " + mClientList.size() + "people/person remains now.");
     }
 
     private void sendToAll(String message) {
