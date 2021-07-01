@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class MultiChatServer {
-    private static final int PORT = 20111;
+    private static final int PORT = 0;
 
     private List<ClientInfo> mClientList;        // Client List
     private ServerSocket mServerSocket;          // Server Socket
