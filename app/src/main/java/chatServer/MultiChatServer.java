@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class MultiChatServer {
-    private static final int PORT = 0;
+    private static final int PORT = 20111;
 
     private List<ClientInfo> mClientList;        // Client List
     private ServerSocket mServerSocket;          // Server Socket
@@ -39,12 +39,12 @@ public class MultiChatServer {
 
     private void addClient(ClientInfo client) {
         mClientList.add(client);
-        sendToAll("Hello, " + client.getNickName() + ". " + mClientList.size() + "people/person remains now.");
+        sendToAll("Hello, " + client.getNickName() + ". " + mClientList.size() + " people/person remains now.");
     }
 
     private void removeClient(ClientInfo client) {
         mClientList.remove(client);
-        sendToAll("BYE, " + client.getNickName() + ". " + mClientList.size() + "people/person remains now.");
+        sendToAll("BYE, " + client.getNickName() + ". " + mClientList.size() + " people/person remains now.");
     }
 
     private void sendToAll(String message) {
