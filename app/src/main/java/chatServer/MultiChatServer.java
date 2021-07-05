@@ -50,8 +50,7 @@ public class MultiChatServer {
     private void sendToAll(String message) {
         System.out.println(message);
 
-        // 멀티 스레딩 처리
-        // 여러 쓰레드에서 mClientList 에 접근 시 하나의 쓰레드만 사용하도록 하는 방법
+        // Handle multi thread
         synchronized (mClientList) {
             //for (int i = 0; i < mClientList.size(); i++)
             for (ClientInfo client : mClientList) {
@@ -89,14 +88,14 @@ public class MultiChatServer {
         @Override
         public void run() {
             try {
-                // 계속 듣기만
+                // Always Listen
                 while (mInputStream != null) {
                     sendToAll(mInputStream.readUTF());
                 }
             } catch (IOException e) {
 
             } finally {
-                // 접속 종료시
+                // Connection out
                 removeClient(mClientInfo);
             }
         }
